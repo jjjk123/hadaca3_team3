@@ -6,7 +6,7 @@ This documentation provides an overview of the process for performing cell type 
 ## Dependencies
 
 ```R
-library(MuSiC)
+library(MuSiC) ## Currently not in use, but will be tried
 library(SCDC)
 ```
 
@@ -117,7 +117,7 @@ peng_baron_plus_bulk_rna <- SCDC_ENSEMBLE(bulk.eset = bulk_mixes_eset,
 
 ## Summary
 
-This script performs cell-type decomposition using the `SCDC` and `MuSiC` libraries, combining single-cell references with bulk RNA-seq mixtures. Key steps include:
+This script performs cell-type decomposition using the `SCDC` library. The Music library is yet to be tested. It combines single-cell references with bulk RNA-seq mixtures. Key steps include:
 1. Loading reference and mixture data.
 2. Creating `ExpressionSet` objects.
 3. Estimating cell-type proportions using `SCDC_prop` and custom methods.
