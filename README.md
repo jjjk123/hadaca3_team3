@@ -1,9 +1,29 @@
-# hadaca3_teamB
-# Documentation for Cell Type Decomposition Using SCDC Libraries
+> Hadaca3 Data Challenge
+
+# Challenge: "Multimodal data integration to quantify tumor heterogeneity in cancer"
+
+The Data Challenge took place on December 2-6, 2024 in Aussois in France.
+
+Description of the challenge: https://hadaca3.sciencesconf.org/
+
+# Team B
+
+- 
+-
+-
+-
+
+# Abstract
+
+**The aim** of the project was to design and develop a bioinformatic deconvolution workflow for pancreatic cancer decomposition.
 
 This documentation provides an overview of the process for performing cell type decomposition using the `SCDC` R libraries. The code provided utilizes reference single-cell RNA-seq datasets and bulk RNA-seq mixtures to infer cell-type proportions.
 
-## Dependencies
+# Worklow
+
+# Methods
+
+### Dependencies
 
 ```R
 library(MuSiC) ## Currently not in use, but will be tried
@@ -12,7 +32,7 @@ library(SCDC)
 
 Ensure these packages are installed before executing the script.
 
-## Data Preparation
+### Data Preparation
 
 ### Load Reference and Mixture Datasets
 
@@ -103,7 +123,15 @@ nnls_bulk_rna <- global_nnls(mix_bulk_rna, ref_bulk_rna)
 bulk_rna_scdc_prop <- CreateSCDCpropObj(t(nnls_bulk_rna), ref_bulk_rna)
 ```
 
-## Ensemble of Results
+**Note: Ensure proper preprocessing of input data for accurate results.**
+
+# Codabench Platform
+
+Competition website: https://www.codabench.org/competitions/4714/
+
+
+
+# Results
 
 The `SCDC_ENSEMBLE` function integrates cell-type proportions estimated from multiple methods.
 
@@ -115,7 +143,9 @@ peng_baron_plus_bulk_rna <- SCDC_ENSEMBLE(bulk.eset = bulk_mixes_eset,
                                           prop.input = list(bulk.baron, bulk.peng, bulk_rna_scdc_prop))
 ```
 
-## Summary
+Codabench score (best method): 0.66
+
+# Conclusions
 
 This script performs cell-type decomposition using the `SCDC` library. The Music library is yet to be tested. It combines single-cell references with bulk RNA-seq mixtures. Key steps include:
 1. Loading reference and mixture data.
@@ -123,5 +153,8 @@ This script performs cell-type decomposition using the `SCDC` library. The Music
 3. Estimating cell-type proportions using `SCDC_prop` and custom methods.
 4. Combining results using `SCDC_ENSEMBLE`.
 
-Ensure proper preprocessing of input data for accurate results.
+# Future ideas
 
+# References
+
+## Special thank you to the Data Challenge Organizers!
