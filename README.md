@@ -1,5 +1,31 @@
-# hadaca3_teamB
+
 # Documentation for Cell Type Decomposition Using SCDC Libraries
+
+# Challenge:
+
+The main goal of the challenge is to explore and discover new methods to solve deconvolution problems. To quantify tumor hetergeneity using supervised deconvolution approaches on bulk transcriptome and DNA methylation data. 
+
+# Contributors:
+
+
+
+# Abstract
+
+# Workflow
+
+# Methods
+
+Dependencies
+
+# Results
+
+# Conclusions
+
+# Future ideas
+
+# References
+
+
 
 This documentation provides an overview of the process for performing cell type decomposition using the `SCDC` R libraries. The code provided utilizes reference single-cell RNA-seq datasets and bulk RNA-seq mixtures to infer cell-type proportions.
 
