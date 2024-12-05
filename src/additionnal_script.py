@@ -33,7 +33,6 @@ def calculate_weighted_sum(Y_hats, weights):
     weighted_sum = np.zeros_like(Y_hats[0])
     for Y_hat, weight in zip(Y_hats, weights):
         weighted_sum += weight * Y_hat
-    print(weighted_sum)
     return weighted_sum
 
 def useless_function():
