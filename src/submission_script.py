@@ -19,11 +19,13 @@ def program(mix_rna=None, ref_rna=None, mix_met=None, ref_met=None, **kwargs):
   required_packages = ["sklearn","pandas",'scipy']
   install_and_import_packages(required_packages)
   from sklearn.linear_model import LinearRegression
+  from sklearn.preprocessing import StandardScaler
   import pandas
   import scipy
+  import numpy
 
-  from attachement import additionnal_script
-  additionnal_script.useless_function()
+  from attachement.additionnal_script import find_optimal_weights, calculate_weighted_sum
+  #additionnal_script.useless_function()
 
   meth_rna_mapping = pandas.read_csv("attachement/mapping_meth_rna.csv", index_col=0)
   common_bulk_meth = meth_rna_mapping["UCSC_RefGene_Name"].values
@@ -35,6 +37,9 @@ def program(mix_rna=None, ref_rna=None, mix_met=None, ref_met=None, **kwargs):
   filtered_ref_meth = ref_met.loc[meth_rna_mapping.index]
   filtered_ref_meth.index = meth_rna_mapping["UCSC_RefGene_Name"].values
 
+  pseudo_bulk_peng = pandas.read_csv("attachement/peng_pseudo_bulk_sum.csv", index_col=0)
+  pseudo_bulk_peng_cpm = pseudo_bulk_peng/pseudo_bulk_peng.sum(axis=0)*1000000
+  pseudo_bulk_peng_cpm = pseudo_bulk_peng_cpm.loc[pseudo_bulk_peng_cpm.sum(axis=1)>0]
 
   def estimate_proportions(mix_df, ref_df):
     results = []
@@ -49,14 +54,23 @@ def program(mix_rna=None, ref_rna=None, mix_met=None, ref_met=None, **kwargs):
     props = pandas.DataFrame([res_i / sum(res_i) for res_i in results], columns=ref_df.columns)
     return props.T
   
+  # Filter CpG sites
+  row_max = numpy.max(filtered_ref_meth.values, axis=1)
+  row_means_without_max = (numpy.sum(filtered_ref_meth.values, axis=1) - row_max) / (filtered_ref_meth.values.shape[1] - 1)
+  diffs = row_max - row_means_without_max
+  threshold = diffs[diffs>numpy.min(numpy.mean(filtered_ref_meth.values, axis=0))]
+  sorted_indices = numpy.argsort(-diffs)
+  sorted_indices_reduced = sorted_indices[:threshold.shape[0]]
+  filtered_ref_meth = filtered_ref_meth.iloc[sorted_indices_reduced]
+
 
   # Creation of an index, idx_feat, corresponding to the intersection of features present in the references and those present in the mixtures.
   idx_feat_meth = filtered_mix_met.index.intersection(filtered_ref_meth.index)
   mix_filtered_meth = filtered_mix_met.loc[idx_feat_meth, :]
   ref_filtered_meth = filtered_ref_meth.loc[idx_feat_meth, :]
 
+  # Scaling does not work
   prop_meth = estimate_proportions(mix_filtered_meth, ref_filtered_meth)
- 
   # Labeling of estimated proportions 
   prop_meth.columns = mix_filtered_meth.columns
 
@@ -70,8 +84,33 @@ def program(mix_rna=None, ref_rna=None, mix_met=None, ref_met=None, **kwargs):
   # Labeling of estimated proportions 
   prop_rna.columns = mix_filtered_rna.columns
 
+  # Creation of an index, idx_feat, corresponding to the intersection of features present in the references and those present in the mixtures.
+  idx_feat_pseudo_rna = filtered_mix_rna.index.intersection(pseudo_bulk_peng_cpm.index)
+  mix_filtered_pseudo_rna = filtered_mix_rna.loc[idx_feat_pseudo_rna, :]
+  ref_filtered_pseudo_rna = pseudo_bulk_peng_cpm.loc[idx_feat_pseudo_rna, :]
 
-  return prop_meth
+  prop_pseudo_rna = estimate_proportions(mix_filtered_pseudo_rna, ref_filtered_pseudo_rna)
+
+  # Labeling of estimated proportions 
+  prop_pseudo_rna.columns = mix_filtered_rna.columns
+
+  # Just summing is not the best
+  #final_prop = (prop_rna + prop_meth)/2
+
+  # Multiplication of RNA and Meth doesn't work
+#   mix_rna_times_meth = (1-filtered_mix_met).mul(filtered_mix_rna)
+#   ref_rna_times_meth = (1-ref_filtered_meth).mul(ref_filtered_rna)
+#   prop_rna_times_meth = estimate_proportions(mix_rna_times_meth, ref_rna_times_meth)
+#   prop_rna_times_meth.columns = mix_rna_times_meth.columns
+
+  y_hat = [ref_filtered_pseudo_rna.dot(prop_pseudo_rna), ref_filtered_rna.dot(prop_rna)]
+  best_weights, best_rmse = find_optimal_weights(mix_filtered_rna, y_hat)
+  print(best_weights, best_rmse)
+
+  final_prop = pandas.DataFrame(calculate_weighted_sum(y_hat, best_weights),
+                                index=prop_pseudo_rna.index, columns=prop_pseudo_rna.columns)
+
+  return final_prop
   ##
   ## YOUR CODE ENDS HERE
   ##
