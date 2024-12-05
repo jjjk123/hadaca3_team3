@@ -19,7 +19,11 @@ Description of the challenge: https://hadaca3.sciencesconf.org/
 
 This documentation provides an overview of the process for performing cell type decomposition using the `SCDC` R libraries. The code provided utilizes reference single-cell RNA-seq datasets and bulk RNA-seq mixtures to infer cell-type proportions.
 
-# Worklow
+# Workflow
+
+<img width="1011" alt="Slides_1" src="https://github.com/user-attachments/assets/4c54e3cb-c1d0-4853-a8fc-a953f293a46d">
+
+<img width="981" alt="Slides_2" src="https://github.com/user-attachments/assets/b906977b-5dcd-4bb2-ba63-74065b717fbe">
 
 # Methods
 
