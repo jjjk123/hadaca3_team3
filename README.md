@@ -21,9 +21,38 @@ The detailed description of the challenge can be found here: https://hadaca3.sci
 
 This documentation provides an overview of the our project, which focused on performing cell type decomposition using the `SCDC` R libraries[^3]. The code provided utilizes reference single-cell RNA-seq datasets and bulk RNA-seq mixtures to infer cell-type proportions.
 
-# Worklow
+# Workflow
+
+<img width="240" alt="slides_main" src="https://github.com/user-attachments/assets/168b0fb2-69ff-4cb7-b476-f77ca5aeeadc">
 
 # Methods
+
+## Feature selection 
+
+The feature selection is done on both methylation and single-cell RNA data
+
+For methylation data:
+- Begin with full bulk methylation data
+- Map CpG islands to genes from bulk RNA
+- Find cell-type specific methylation sites by a) Ranking CpG islands by difference between max methylation across all cell types and mean of remaining cell types and b) Select top CpG islands based on threshold (minimum of means methylation across all cell types)
+
+For single-cell RNA:
+- Identify marker genes for cell types based on differential expression analysis
+- Create pseudo-bulk data
+
+## Cell type deconvolution
+
+Deconvolution: Running SCDC + NNLS and an Ensemble method (this was abandoned however, as it achieved poor results)
+
+Unimodal predictions: 
+- NNLS on bulk RNA, bulk methylation and pseudo-bulk created from single-cell RNA-seq separately
+- Trying to mix bulk RNA and methylation changing reference to (1-bulk_methylation)*bulk_RNA element wise
+
+Multimodal predictions:
+- All unimodal from a. + Ensemble method. This allowed using the intersection of CpG sites to gene, bulkRNA and scRNA genes
+
+<img width="466" alt="Screenshot 2024-12-05 at 19 23 27" src="https://github.com/user-attachments/assets/83f2ab94-dca8-4517-a758-6e89bb2177c2">
+
 
 ### Dependencies
 
