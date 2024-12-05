@@ -7,11 +7,18 @@ The main goal of the challenge is to explore and discover new methods to solve d
 
 # Contributors:
 
-
+Solène Weill (solene@epigenelabs.com)
+Jędrzej Kubica (jedrzej.kubica@univ-grenoble-alpes.fr)
+Vesna Lukic (vesna.luki@centralesupelec.fr)
+Guillaume Appe (guillaume@epigenlabs.com)
 
 # Abstract
 
+
+
 # Workflow
+
+
 
 # Methods
 
