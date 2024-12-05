@@ -41,6 +41,8 @@ def program(mix_rna=None, ref_rna=None, mix_met=None, ref_met=None, **kwargs):
   pseudo_bulk_peng_cpm = pseudo_bulk_peng/pseudo_bulk_peng.sum(axis=0)*1000000
   pseudo_bulk_peng_cpm = pseudo_bulk_peng_cpm.loc[pseudo_bulk_peng_cpm.sum(axis=1)>0]
 
+  global_common_genes = numpy.intersect1d(pseudo_bulk_peng_cpm.index, common_bulk_meth)
+
   def estimate_proportions(mix_df, ref_df):
     results = []
     for i in range(len(mix_df.columns)):
@@ -61,7 +63,7 @@ def program(mix_rna=None, ref_rna=None, mix_met=None, ref_met=None, **kwargs):
   threshold = diffs[diffs>numpy.min(numpy.mean(filtered_ref_meth.values, axis=0))]
   sorted_indices = numpy.argsort(-diffs)
   sorted_indices_reduced = sorted_indices[:threshold.shape[0]]
-  filtered_ref_meth = filtered_ref_meth.iloc[sorted_indices_reduced]
+  #filtered_ref_meth = filtered_ref_meth.iloc[sorted_indices_reduced]
 
 
   # Creation of an index, idx_feat, corresponding to the intersection of features present in the references and those present in the mixtures.
@@ -75,9 +77,9 @@ def program(mix_rna=None, ref_rna=None, mix_met=None, ref_met=None, **kwargs):
   prop_meth.columns = mix_filtered_meth.columns
 
   # Creation of an index, idx_feat, corresponding to the intersection of features present in the references and those present in the mixtures.
-  idx_feat_rna = filtered_mix_rna.index.intersection(filtered_ref_rna.index)
-  mix_filtered_rna = filtered_mix_rna.loc[idx_feat_rna, :]
-  ref_filtered_rna = filtered_ref_rna.loc[idx_feat_rna, :]
+  #idx_feat_rna = filtered_mix_rna.index.intersection(filtered_ref_rna.index)
+  mix_filtered_rna = filtered_mix_rna.loc[global_common_genes, :]
+  ref_filtered_rna = filtered_ref_rna.loc[global_common_genes, :]
 
   prop_rna = estimate_proportions(mix_filtered_rna, ref_filtered_rna)
 
@@ -85,9 +87,9 @@ def program(mix_rna=None, ref_rna=None, mix_met=None, ref_met=None, **kwargs):
   prop_rna.columns = mix_filtered_rna.columns
 
   # Creation of an index, idx_feat, corresponding to the intersection of features present in the references and those present in the mixtures.
-  idx_feat_pseudo_rna = filtered_mix_rna.index.intersection(pseudo_bulk_peng_cpm.index)
-  mix_filtered_pseudo_rna = filtered_mix_rna.loc[idx_feat_pseudo_rna, :]
-  ref_filtered_pseudo_rna = pseudo_bulk_peng_cpm.loc[idx_feat_pseudo_rna, :]
+  #idx_feat_pseudo_rna = filtered_mix_rna.index.intersection(pseudo_bulk_peng_cpm.index)
+  mix_filtered_pseudo_rna = filtered_mix_rna.loc[global_common_genes, :]
+  ref_filtered_pseudo_rna = pseudo_bulk_peng_cpm.loc[global_common_genes, :]
 
   prop_pseudo_rna = estimate_proportions(mix_filtered_pseudo_rna, ref_filtered_pseudo_rna)
 
@@ -103,11 +105,12 @@ def program(mix_rna=None, ref_rna=None, mix_met=None, ref_met=None, **kwargs):
 #   prop_rna_times_meth = estimate_proportions(mix_rna_times_meth, ref_rna_times_meth)
 #   prop_rna_times_meth.columns = mix_rna_times_meth.columns
 
-  y_hat = [ref_filtered_pseudo_rna.dot(prop_pseudo_rna), ref_filtered_rna.dot(prop_rna)]
-  best_weights, best_rmse = find_optimal_weights(mix_filtered_rna, y_hat)
+  y_hat = [ref_filtered_pseudo_rna.dot(prop_pseudo_rna), ref_filtered_rna.dot(prop_rna), ref_filtered_meth.dot(prop_meth)]
+  best_weights, best_rmse = find_optimal_weights((mix_filtered_rna+mix_filtered_meth)/2, y_hat)
   print(best_weights, best_rmse)
 
-  final_prop = pandas.DataFrame(calculate_weighted_sum(y_hat, best_weights),
+  p_hat = [prop_pseudo_rna, prop_rna, prop_meth]
+  final_prop = pandas.DataFrame(calculate_weighted_sum(p_hat, best_weights),
                                 index=prop_pseudo_rna.index, columns=prop_pseudo_rna.columns)
 
   return final_prop
