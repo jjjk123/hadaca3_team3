@@ -4,9 +4,11 @@
 
 The Data Challenge took place on December 2-6, 2024 in Aussois in France.
 
-Description of the challenge: https://hadaca3.sciencesconf.org/
+The detailed description of the challenge can be found here: https://hadaca3.sciencesconf.org/
 
-# Team B
+# Contributors
+
+### Team B
 
 - Solène Weill (solene@epigenelabs.com)
 - Jędrzej Kubica (jedrzej.kubica@univ-grenoble-alpes.fr)
@@ -15,9 +17,9 @@ Description of the challenge: https://hadaca3.sciencesconf.org/
 
 # Abstract
 
-**The aim** of the project was to design and develop a bioinformatic deconvolution workflow for pancreatic cancer decomposition.
+**The aim** of the project was to design and develop a bioinformatic workflow to quantify pancreatic tumor heterogeneity using supervised deconvolution methods and multi-omics data. There have been previous studies that introduced various deconvolution methods[^1], however a number of challenges that still persist in the field. The first challenge was the integration of multi-omics data (RNA-seq, single cell RNA-seq, and DNA methylation) for a reference in the deconvolution process, and the second challenge was the selection and combination of the best deconvolution software packages. The project results were measured and compared to other approaches on the Codabench platform[^2].
 
-This documentation provides an overview of the process for performing cell type decomposition using the `SCDC` R libraries. The code provided utilizes reference single-cell RNA-seq datasets and bulk RNA-seq mixtures to infer cell-type proportions.
+This documentation provides an overview of the our project, which focused on performing cell type decomposition using the `SCDC` R libraries[^3]. The code provided utilizes reference single-cell RNA-seq datasets and bulk RNA-seq mixtures to infer cell-type proportions.
 
 # Worklow
 
@@ -125,25 +127,23 @@ bulk_rna_scdc_prop <- CreateSCDCpropObj(t(nnls_bulk_rna), ref_bulk_rna)
 
 **Note: Ensure proper preprocessing of input data for accurate results.**
 
-# Codabench Platform
+# Codabench Platform[^2]
 
 Competition website: https://www.codabench.org/competitions/4714/
 
-
-
 # Results
 
-The `SCDC_ENSEMBLE` function integrates cell-type proportions estimated from multiple methods.
+The best deconvolution results: Mmethylation
 
-```R
-peng_baron_plus_bulk_rna <- SCDC_ENSEMBLE(bulk.eset = bulk_mixes_eset,
-                                          ct.varname="cell_type",
-                                          sample = "sample",
-                                          ct.sub=c("basal", "classic", "endo", "fibro", "immune"),
-                                          prop.input = list(bulk.baron, bulk.peng, bulk_rna_scdc_prop))
-```
+Approach NNLS + feature selection (CpG to gene mapping, cell-type specific methylation)
+(Python)
 
-Codabench score (best method): 0.66
+Codabench score = 0.66
+
+The decomposition of scores for 9 validation datasets:
+
+![image](https://github.com/user-attachments/assets/df4bdc3b-7647-4e6c-91ea-c2e38c59e7a6)
+
 
 # Conclusions
 
@@ -155,6 +155,10 @@ This script performs cell-type decomposition using the `SCDC` library. The Music
 
 # Future ideas
 
+## Special thank you to the Data Challenge Organizers!
+
 # References
 
-## Special thank you to the Data Challenge Organizers!
+[^1]: Epigenomic Deconvolution of Breast Tumors Reveals Metabolic Coupling between Constituent Cell Types: 10.1016/j.celrep.2016.10.057
+[^2]: Codabench: Flexible, easy-to-use, and reproducible meta-benchmark platform: 10.1016/j.patter.2022.100543
+[^3]: SCDC: bulk gene expression deconvolution by multiple single-cell RNA sequencing references: doi.org/10.1093/bib/bbz166
