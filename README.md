@@ -8,10 +8,10 @@ Description of the challenge: https://hadaca3.sciencesconf.org/
 
 # Team B
 
-- 
--
--
--
+- Solène Weill (solene@epigenelabs.com)
+- Jędrzej Kubica (jedrzej.kubica@univ-grenoble-alpes.fr)
+- Vesna Lukic (vesna.luki@centralesupelec.fr)
+- Guillaume Appe (guillaume@epigenlabs.com)
 
 # Abstract
 
