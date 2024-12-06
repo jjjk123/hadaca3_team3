@@ -21,6 +21,8 @@ The detailed description of the challenge can be found here: https://hadaca3.sci
 
 **The aim** of the project was to design and develop a bioinformatic workflow to quantify pancreatic tumor heterogeneity using supervised deconvolution methods and multi-omics data. There have been previous studies that introduced various deconvolution methods[^1], however there are a number of challenges that still persist in the field. The first challenge was the integration of multi-omics data (RNA-seq, single cell RNA-seq, and DNA methylation) for a reference in the deconvolution process, and the second challenge was the selection and combination of the best deconvolution software packages. The project results were measured and compared to other approaches on the Codabench platform[^2].
 
+<img width="535" alt="Screenshot 2024-12-06 at 14 09 53" src="https://github.com/user-attachments/assets/f55e096e-43ae-46e5-b7f8-0f0139d3e486">
+
 This documentation provides comprehensive details of our contribution, which focused on performing cell-type deconvolution using bulk RNA and methylation data, and trying both uni- and multi-modal predictions.
 
 # Workflow
@@ -65,13 +67,15 @@ Multimodal predictions:
 
 <img width="466" alt="Screenshot 2024-12-05 at 19 23 27" src="https://github.com/user-attachments/assets/83f2ab94-dca8-4517-a758-6e89bb2177c2">
 
+### Exploratory data analysis
+
+The script cellType_specific_CpGmet.ipynb shows some preliminary analysis of the data. It shows how genes are clustered based on their expression, a label count histogram. 
+
+We get the genes that have the most distinct methylation across the 5 cell types.
 
 ### Dependencies
 
-```R
-library(MuSiC) ## Currently not in use, but will be tried
-library(SCDC)
-```
+
 
 Ensure these packages are installed before executing the script.
 
@@ -187,12 +191,6 @@ The decomposition of scores for 9 validation datasets:
 
 
 # Conclusions
-
-This script performs cell-type decomposition using the `SCDC` library. The Music library is yet to be tested. It combines single-cell references with bulk RNA-seq mixtures. Key steps include:
-1. Loading reference and mixture data.
-2. Creating `ExpressionSet` objects.
-3. Estimating cell-type proportions using `SCDC_prop` and custom methods.
-4. Combining results using `SCDC_ENSEMBLE`.
 
 # Future ideas
 
