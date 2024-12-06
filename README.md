@@ -15,15 +15,28 @@ The detailed description of the challenge can be found here: https://hadaca3.sci
 - Vesna Lukic (vesna.lukic@centralesupelec.fr)
 - Guillaume Appe (guillaume@epigenlabs.com)
 
-# Abstract
+# Table of contents
+
+# Overview
 
 **The aim** of the project was to design and develop a bioinformatic workflow to quantify pancreatic tumor heterogeneity using supervised deconvolution methods and multi-omics data. There have been previous studies that introduced various deconvolution methods[^1], however there are a number of challenges that still persist in the field. The first challenge was the integration of multi-omics data (RNA-seq, single cell RNA-seq, and DNA methylation) for a reference in the deconvolution process, and the second challenge was the selection and combination of the best deconvolution software packages. The project results were measured and compared to other approaches on the Codabench platform[^2].
 
-This documentation provides an overview of the our project, which focused on performing cell type decomposition using the `SCDC` R libraries[^3]. The code provided utilizes reference single-cell RNA-seq datasets and bulk RNA-seq mixtures to infer cell-type proportions.
+This documentation provides comprehensive details of our contribution, which focused on performing cell-type deconvolution using bulk RNA and methylation data, and trying both uni- and multi-modal predictions.
 
 # Workflow
 
 <img width="590" alt="Screenshot 2024-12-06 at 09 47 59" src="https://github.com/user-attachments/assets/37987e5c-9105-4c04-9be6-c96107a04eae">
+
+# Data
+
+The challenge was split into three phases as follows:
+
+Phase 1: Discovery of the data and the Codabench platform
+Phase 2: Estimation of cell type heterogeneity and submissions of methods/results into the platform
+Phase 3: Migration from phase 2 of the best methods and evalution of them
+
+In the Phase 1, 
+
 
 
 # Methods
