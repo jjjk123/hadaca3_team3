@@ -69,9 +69,14 @@ Multimodal predictions:
 
 ### Exploratory data analysis
 
-The script cellType_specific_CpGmet.ipynb shows some preliminary analysis of the data. It shows how genes are clustered based on their expression, a label count histogram. 
+The script cellType_specific_CpGmet.ipynb shows some preliminary analysis of the data. It shows how genes are clustered based on their expression.
+
+<img width="510" alt="Screenshot 2024-12-06 at 14 21 48" src="https://github.com/user-attachments/assets/2c00674d-378f-4a7c-89c6-b6b412c9ece1">
 
 We get the genes that have the most distinct methylation across the 5 cell types.
+
+<img width="619" alt="Screenshot 2024-12-06 at 14 25 26" src="https://github.com/user-attachments/assets/fdc5360c-603a-44af-a450-a47837729e02">
+
 
 ### Dependencies
 
