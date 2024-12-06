@@ -67,7 +67,7 @@ Multimodal predictions:
 
 <img width="466" alt="Screenshot 2024-12-05 at 19 23 27" src="https://github.com/user-attachments/assets/83f2ab94-dca8-4517-a758-6e89bb2177c2">
 
-### Exploratory data analysis
+# Exploratory data analysis
 
 The script cellType_specific_CpGmet.ipynb shows some preliminary analysis of the data. It shows how genes are clustered based on their expression.
 
@@ -77,6 +77,9 @@ We get the genes that have the most distinct methylation across the 5 cell types
 
 <img width="619" alt="Screenshot 2024-12-06 at 14 25 26" src="https://github.com/user-attachments/assets/fdc5360c-603a-44af-a450-a47837729e02">
 
+# Pre-processing
+
+The script single_cell_preprocessing.R reads the single cell reference data, then creates and processes a Seurat object for each single cell dataset. The differential expression is computed, and the markers for each cell type are obtained, as well as the final gene list.
 
 ### Dependencies
 
