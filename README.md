@@ -31,13 +31,11 @@ This documentation provides comprehensive details of our contribution, which foc
 
 The challenge was split into three phases as follows:
 
-Phase 1: Discovery of the data and the Codabench platform
-Phase 2: Estimation of cell type heterogeneity and submissions of methods/results into the platform
-Phase 3: Migration from phase 2 of the best methods and evalution of them
+- Phase 1: Discovery of the data and the Codabench platform
+- Phase 2: Estimation of cell type heterogeneity and submissions of methods/results into the platform
+- Phase 3: Migration from phase 2 of the best methods and evalution of them
 
-In the Phase 1, 
-
-
+Data was provided in the first two phases. Phase 1 data consisted of one simulated multi-omic dataset having an in-silico mixture of 5 cell types with explicit dependence between genes/CpG probes. Phase 2 data consisted of xxxxx.
 
 # Methods
 
