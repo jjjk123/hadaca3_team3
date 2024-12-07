@@ -117,7 +117,7 @@ Prepare Input Data:
 - Pseudo-bulk RNA data (peng_pseudo_bulk_sum.csv).
 
 Run the program:
-python submission_script.py
+python `submission_script.py`
 
 **Note: Ensure proper preprocessing of input data for accurate results.**
 
@@ -138,10 +138,22 @@ The decomposition of scores for 9 validation datasets:
 
 ![image](https://github.com/user-attachments/assets/df4bdc3b-7647-4e6c-91ea-c2e38c59e7a6)
 
-
 # Conclusions
 
+- It is difficult to make conclusions about which is the best-performing deconvolution algorithm given the limited available time in the competition.
+- Feature selection is the key to improve performance
+- Given our teams expertise in python, we preferred the usage of python rather than R (the InMoose python package, developed by Epigene Labs is a good example)
+
 # Future ideas
+
+- Test different pre-processing methods (reduce noise, batch correction and integrate single cell data, TMM or DESeq2 normalisation)
+- Improve Ensemble methods for late integration
+- Use M-values for methylation instead of beta-values
+- Test feature selection with biological a priori
+    - Gene set enrichment analysis using msgdib and hallmark of epigenetic
+    - Use genes signatures allowing molecular classification of the cancer (and predict based on subtypes)
+- Generalize pipeline to other cancer types
+
 
 ## Special thank you to the Data Challenge Organizers!
 
