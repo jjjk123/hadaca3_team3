@@ -6,6 +6,26 @@ The Data Challenge took place on December 2-6, 2024 in Aussois in France.
 
 The detailed description of the challenge can be found here: https://hadaca3.sciencesconf.org/
 
+# Table of contents
+
+- [Table of contents](#table-of-contents)  
+- [Contributors](#contributors)  
+- [Overview](#overview)  
+- [Workflow](#workflow)  
+- [Data](#data)  
+- [Methods](#methods)  
+- [Exploratory Data Analysis](#exploratory-data-analysis)  
+- [Pre-processing](#pre-processing)  
+- [Model](#model)  
+- [Usage](#usage)  
+- [Codabench Platform](#codabench-platform)  
+- [Results](#results)  
+- [Conclusions](#conclusions)
+- [Future Ideas](#future-ideas)  
+- [Acknowledgments](#special-thank-you-to-the-data-challenge-organizers)  
+- [References](#references)  
+
+
 # Contributors
 
 ### Team B
@@ -15,11 +35,9 @@ The detailed description of the challenge can be found here: https://hadaca3.sci
 - Vesna Lukic (vesna.lukic@centralesupelec.fr)
 - Guillaume Appe (guillaume@epigenlabs.com)
 
-# Table of contents
-
 # Overview
 
-**The aim** of the project was to design and develop a bioinformatic workflow to quantify pancreatic tumor heterogeneity using supervised deconvolution methods and multi-omics data. There have been previous studies that introduced various deconvolution methods[^1], however there are a number of challenges that still persist in the field. The first challenge was the integration of multi-omics data (RNA-seq, single cell RNA-seq, and DNA methylation) for a reference in the deconvolution process, and the second challenge was the selection and combination of the best deconvolution software packages. The project results were measured and compared to other approaches on the Codabench platform[^2].
+**The aim** of the project was to design and develop a bioinformatic workflow to quantify pancreatic tumor heterogeneity using supervised deconvolution methods and multi-omics data. There have been previous studies that introduced various deconvolution methods[^1], however there are a number of challenges that still persist in the field. The first challenge was the integration of multi-omics data (RNA-seq, single cell RNA-seq, and DNA methylation) for a reference in the deconvolution process, and the second challenge was the selection and combination of the best deconvolution software packages. The project results were measured and compared to other approaches on the  platform[^2].
 
 <img width="535" alt="Screenshot 2024-12-06 at 14 09 53" src="https://github.com/user-attachments/assets/f55e096e-43ae-46e5-b7f8-0f0139d3e486">
 
@@ -121,7 +139,7 @@ Run the program:
 
 **Note: Ensure proper preprocessing of input data for accurate results.**
 
-# Codabench Platform[^2]
+# Codabench-Platform[^2]
 
 Competition website: https://www.codabench.org/competitions/4714/
 
