@@ -117,7 +117,7 @@ Prepare Input Data:
 - Pseudo-bulk RNA data (peng_pseudo_bulk_sum.csv).
 
 Run the program:
-python `submission_script.py`
+`python submission_script.py`
 
 **Note: Ensure proper preprocessing of input data for accurate results.**
 
